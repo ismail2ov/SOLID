@@ -9,4 +9,16 @@ public class Delivery {
     public boolean hasCarrier() {
         return true;
     }
+
+    public boolean canDeliveryOrder() throws Exception {
+        if (!checkAddress()) {
+            throw new Exception("Invalid address");
+        }
+
+        if (!hasCarrier()) {
+            throw new Exception("No carrier");
+        }
+
+        return true;
+    }
 }

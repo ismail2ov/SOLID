@@ -16,53 +16,9 @@ public class Checkout {
     }
 
     public boolean validateCart() throws Exception {
-        isCartValid();
-        canDeliveryOrder();
-        validatePayment();
-
-        return true;
-    }
-
-    public boolean isCartValid() throws Exception {
-        if (cart.getNumProducts() <= 0) {
-            throw new Exception("The cart is empty");
-        }
-
-        if (cart.getTotal() < cart.MIN_PURCHASE_AMOUNT) {
-            throw new Exception("Does not reach the minimum required for the cart");
-        }
-
-        if (cart.getTotal() > cart.MAX_PURCHASE_AMOUNT) {
-            throw new Exception("You have exceeded the maximum total allowed for a purchase");
-        }
-
-        if (!cart.checkStock()) {
-            throw new Exception("No hay stock");
-        }
-
-        return true;
-    }
-
-    public boolean canDeliveryOrder() throws Exception {
-        if (!delivery.checkAddress()) {
-            throw new Exception("Invalid address");
-        }
-
-        if (!delivery.hasCarrier()) {
-            throw new Exception("No carrier");
-        }
-
-        return true;
-    }
-
-    public boolean validatePayment() throws Exception {
-        if (!payment.hasPaymentMethods()) {
-            throw new Exception("No payment methods");
-        }
-
-        if (!payment.isCompulsiveBuyer()) {
-            throw new Exception("Are you a compulsive buyer signed");
-        }
+        cart.isCartValid();
+        delivery.canDeliveryOrder();
+        payment.validatePayment();
 
         return true;
     }
